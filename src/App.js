@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Switch, Route } from 'react-router-dom'
-import Header from "./components/Header";
+import AppHeader from "./components/AppHeader";
 import formSchema from './validation/formSchema'
 import * as Yup from 'yup'
 import axios from 'axios'
+import PizzaForm from './components/PizzaForm'
+import Home from './components/Home'
+import { Container, Divider } from 'semantic-ui-react'
 
 const initialForm = {
   name:'',
@@ -27,23 +30,22 @@ const App = () => {
   const [ disable, setDisable ] = useState(initialDisable)
 
   return (
-    <div>
-      <Header />
-      <Switch>
-        {/* 
-        <Route path='/form/'>
-          <Form 
-          orderForm={orderForm} 
-          errors={errors}>
-          disable={disable}
+    <Container>
+      <AppHeader />
+      <Divider />
+      <Switch>       
+        <Route path='/pizza'>
+          <PizzaForm 
+          pizza={orderForm} 
+          errors={errors}
+          disable={disable}/>
         </Route>
         
-        <Route>
-          <Home>
-        </Route path='/'> 
-        */}
+        <Route  path='/'>
+          <Home />
+        </Route>       
       </Switch>
-    </div>
+    </Container>
   );
 };
 export default App;
