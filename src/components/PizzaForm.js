@@ -1,11 +1,5 @@
 import React from 'react'
-import { Input, Form, Select, Button } from 'semantic-ui-react'
-
-const sizeOptions = [
-    {text:'Small', value:'Small'},
-    {text:'Medium', value:'Medium'},
-    {text:'Large', value:'Large'}
-]
+import { Input, Form, Button } from 'semantic-ui-react'
 
 const PizzaForm = props => {
     const { 
