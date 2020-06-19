@@ -16,14 +16,13 @@ const AppHeader = () => {
             <Menu borderless>
                 <Menu.Item header as='h1'>Lambda Eats</Menu.Item> 
                 <Menu.Menu position='right'>
-                    <Menu.Item onClick={homeButton}>Home</Menu.Item>
-                    <Menu.Item onClick={order}>
+                    <Menu.Item onClick={homeButton} className='homeBtn'>Home</Menu.Item>
+                    <Menu.Item onClick={order} className='orderBtn'>
                         Order
                     </Menu.Item>
                     
                 </Menu.Menu>
             </Menu>
-            <p>You can remove this code and create your own header</p>
         </div>
     )
 }

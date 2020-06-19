@@ -1,12 +1,13 @@
 import React from 'react'
-import {  } from 'semantic-ui-react'
+import { Container, Image } from 'semantic-ui-react'
+import splash from '../Assets/Pizza.jpg'
 
 const Home = () => {
 
     return (
-        <div>
-            this is the Homepage
-        </div>
+        <Container>
+            <Image fluid src={splash} />
+        </Container>
     )
 }
 

@@ -81,7 +81,6 @@ const App = () => {
     })
   }
   const onSubmit = evt => {
-    console.log(orderForm)
     evt.preventDefault()
     const order = {
       name: orderForm.name.trim(),

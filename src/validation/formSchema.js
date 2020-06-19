@@ -8,6 +8,8 @@ const formSchema = Yup.object().shape({
     size:Yup
         .string()
         .oneOf(['Small', 'Medium', 'Large'], 'Please pick a pizza size.'),
+    instructions:Yup
+        .string()
 })
 
 export default formSchema

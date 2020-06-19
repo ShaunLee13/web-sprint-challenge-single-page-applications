@@ -84,11 +84,15 @@ const PizzaForm = props => {
                     checked={pizza.toppings.sausage}
                     />
                 </Form.Group>
-                <Form.Field name='instructions' 
+                <Form.Field 
+                id='instructions'
+                name='instructions'
+                value={pizza.value} 
                 label='Special Instructions?' 
-                control='textarea' rows='3' 
+                control='input' rows='3' 
+                onChange={onInput}
                 />
-                <Button disabled={disable}>Add to Order!</Button>
+                <Button className='orderBtn' disabled={disable}>Add to Order!</Button>
             </Form>
         </div>
     )
