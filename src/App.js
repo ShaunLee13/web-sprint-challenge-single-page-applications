@@ -16,7 +16,8 @@ const initialForm = {
     blackOlives: false,
     mushrooms: false,
     sausage: false
-  }
+  },
+  instructions:''
 }
 const initialErrors = {
   name:'',
@@ -30,13 +31,28 @@ const App = () => {
   const [ errors, setErrors ] = useState(initialErrors)
   const [ disable, setDisable ] = useState(initialDisable)
 
+  //////Network Request//////
+  const postOrder = order => {
+    axios.post('https://reqres.in/api/users', order)
+      .then(res => {
+        console.log(res.data)
+      })
+      .catch(err => {
+        debugger
+      })
+      .finally(() => {
+        setOrderForm(initialForm)
+      })
+  }
+
+  
   //////Event Handlers//////
   const onInput = evt => {
     const {name, value} = evt.target
-
+    
     Yup
-      .reach(formSchema, name)
-      .validate(value)
+    .reach(formSchema, name)
+    .validate(value)
       .then(valid => {
         setErrors({
           ...errors,
@@ -53,9 +69,37 @@ const App = () => {
         ...orderForm,
         [name]: value
       })
+    }
+  const onCheck = evt => {
+    const { name, checked } = evt.target
+    setOrderForm({
+      ...orderForm,
+      toppings: {
+        ...orderForm.toppings,
+        [name]: checked,
+      }
+    })
+  }
+  const onSubmit = evt => {
+    console.log(orderForm)
+    evt.preventDefault()
+    const order = {
+      name: orderForm.name.trim(),
+      size: orderForm.size.trim(),
+      toppings: Object.keys(orderForm.toppings)
+      .filter(toppingName => 
+        orderForm.toppings[toppingName] === true),
+      instructions: orderForm.instructions.trim()
+    }
+    postOrder(order)
   }
 
-
+  useEffect(() => {
+    formSchema.isValid(orderForm).then(valid => {
+      setDisable(!valid);
+    })
+  }, [orderForm])
+  
   return (
     <Container>
       <AppHeader />
@@ -66,7 +110,9 @@ const App = () => {
           pizza={orderForm} 
           errors={errors}
           disable={disable}
-          onInput={onInput}/>
+          onInput={onInput}
+          onCheck={onCheck}
+          onSubmit={onSubmit}/>
         </Route>
         
         <Route  path='/'>
