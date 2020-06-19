@@ -25,9 +25,36 @@ const initialDisable = true
 
 
 const App = () => {
-  const [ orderForm, newOrderForm ] = useState(initialForm)
+  ///////UseStates//////
+  const [ orderForm, setOrderForm ] = useState(initialForm)
   const [ errors, setErrors ] = useState(initialErrors)
   const [ disable, setDisable ] = useState(initialDisable)
+
+  //////Event Handlers//////
+  const onInput = evt => {
+    const {name, value} = evt.target
+
+    Yup
+      .reach(formSchema, name)
+      .validate(value)
+      .then(valid => {
+        setErrors({
+          ...errors,
+          [name]: ""
+        });
+      })
+      .catch(err => {
+        setErrors({
+          ...errors,
+          [name]: err.errors[0]
+        });
+      });
+      setOrderForm({
+        ...orderForm,
+        [name]: value
+      })
+  }
+
 
   return (
     <Container>
@@ -38,7 +65,8 @@ const App = () => {
           <PizzaForm 
           pizza={orderForm} 
           errors={errors}
-          disable={disable}/>
+          disable={disable}
+          onInput={onInput}/>
         </Route>
         
         <Route  path='/'>
